@@ -1,0 +1,15 @@
+.left {
+  border-width: 2px;
+  border-color: red;
+  border-style: solid;
+  width: 40%;
+  float:left; /* add this */
+}
+
+.right {
+  width: 40%;
+  border-width: 2px;
+  border-color: red;
+  border-style: solid;
+  float: left; /* add this */
+}
