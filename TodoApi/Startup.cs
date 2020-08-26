@@ -26,6 +26,14 @@ namespace TodoApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(action =>
+                action.AddPolicy("AllowSpecificOrigin", builder =>
+                    builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +47,8 @@ namespace TodoApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseAuthorization();
 

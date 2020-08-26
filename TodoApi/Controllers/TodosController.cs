@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,9 +16,28 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public IList<Todo> Get()
         {
-            return "This is the Todos Controller";
+            var a = new Todo { Id = "1", Text = "From server", IsCompleted = false };
+            var b = new Todo { Id = "2", Text = "From server two", IsCompleted = false };
+            var c = new Todo { Id = "3", Text = "From server three", IsCompleted = false };
+            var collection = new List<Todo>();
+            collection.Add(a);
+            collection.Add(b);
+            collection.Add(c);
+
+            return collection;
         }
+
     }
+
+    public class Todo
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+
+        public bool IsCompleted { get; set; }
+
+    };
+
 }

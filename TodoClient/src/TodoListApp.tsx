@@ -1,5 +1,5 @@
 // Import dependencies
-import * as React from 'react'
+import  React, {useEffect} from 'react'
 import { render } from 'react-dom'
 
 // Import components
@@ -11,9 +11,20 @@ import { TodoInterface } from './interfaces'
 
 // Import styles
 import './App.css'
+import { features } from 'process'
 
 const TodoListApp = () => {
     const [todos, setTodos] = React.useState<TodoInterface[]>([])
+    const [todosFromServer, setTodosFromServer] = React.useState<TodoInterface[]>([])
+
+    useEffect(() => {
+      console.log('Component mounted; calling API');
+      fetch('https://localhost:5001/todos')
+        .then(response => response.json())
+        //.then(response => console.log(response))
+        .then(response => setTodos(response))
+        .catch(error => console.log(error));
+    }, []);
 
     function handleTodoCreate(todo: TodoInterface) {
         // Prepare new todos state
