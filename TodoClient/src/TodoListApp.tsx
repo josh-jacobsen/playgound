@@ -9,10 +9,6 @@ import TodoList from './TodoList'
 // Import interfaces
 import { TodoInterface } from './interfaces'
 
-// Import styles
-import './App.css'
-import { features } from 'process'
-
 const TodoListApp = () => {
     const [todos, setTodos] = React.useState<TodoInterface[]>([])
     const [todosFromServer, setTodosFromServer] = React.useState<TodoInterface[]>([])

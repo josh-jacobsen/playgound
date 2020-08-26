@@ -18,7 +18,7 @@ namespace TodoApi.Controllers
         [HttpGet]
         public IList<Todo> Get()
         {
-            var a = new Todo { Id = "1", Text = "From server", IsCompleted = false };
+            var a = new Todo { Id = "1", Text = "Implement a button to get additional todos from server", IsCompleted = false };
             var b = new Todo { Id = "2", Text = "From server two", IsCompleted = false };
             var c = new Todo { Id = "3", Text = "From server three", IsCompleted = false };
             var collection = new List<Todo>();
