@@ -15,12 +15,16 @@ const TodoListApp = () => {
 
     useEffect(() => {
       console.log('Component mounted; calling API');
-      fetch('https://localhost:5001/todos')
+      fetch('https://localhost:5001/todos/get')
         .then(response => response.json())
         //.then(response => console.log(response))
         .then(response => setTodos(response))
         .catch(error => console.log(error));
     }, []);
+
+    const getTodos = async () => {
+      const response = await fetch('https://localhost:5001/todos')
+    }
 
     function handleTodoCreate(todo: TodoInterface) {
         // Prepare new todos state
