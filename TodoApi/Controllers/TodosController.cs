@@ -36,9 +36,13 @@ namespace TodoApi.Controllers
         [Route("GetMore")]
         public IList<Todo> GetMore()
         {
-            var a = new Todo { Id = "11", Text = "More", IsCompleted = false };
+            var a = new Todo { Id = "11", Text = "More todos from the server 1", IsCompleted = false };
+            var b = new Todo { Id = "12", Text = "More todos from the server 2", IsCompleted = false };
+            var c = new Todo { Id = "13", Text = "More todos from the server 3", IsCompleted = false };
             var collection = new List<Todo>();
             collection.Add(a);
+            collection.Add(b);
+            collection.Add(c);
 
             return collection;
         }
