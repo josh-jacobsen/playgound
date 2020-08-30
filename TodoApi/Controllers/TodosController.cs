@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,9 @@ namespace TodoApi.Controllers
         [Route("Get")]
         public IList<Todo> Get()
         {
-            var a = new Todo { Id = "1", Text = "Implement a button to get additional todos from server", IsCompleted = false };
-            var b = new Todo { Id = "2", Text = "Post todos from frontend to server", IsCompleted = false };
-            var c = new Todo { Id = "3", Text = "From server three", IsCompleted = false };
+            var a = new Todo { Id = GenerateId(), Text = "Implement a button to get additional todos from server", IsCompleted = false };
+            var b = new Todo { Id = GenerateId(), Text = "Post todos from frontend to server", IsCompleted = false };
+            var c = new Todo { Id = GenerateId(), Text = "From server three", IsCompleted = false };
             var collection = new List<Todo>();
             collection.Add(a);
             collection.Add(b);
@@ -37,9 +38,9 @@ namespace TodoApi.Controllers
         [Route("GetMore")]
         public IList<Todo> GetMore()
         {
-            var a = new Todo { Id = "11", Text = "More todos from the server 1", IsCompleted = false };
-            var b = new Todo { Id = "12", Text = "More todos from the server 2", IsCompleted = false };
-            var c = new Todo { Id = "13", Text = "More todos from the server 3", IsCompleted = false };
+            var a = new Todo { Id = GenerateId(), Text = "More todos from the server 1", IsCompleted = false };
+            var b = new Todo { Id = GenerateId(), Text = "More todos from the server 2", IsCompleted = false };
+            var c = new Todo { Id = GenerateId(), Text = "More todos from the server 3", IsCompleted = false };
             var collection = new List<Todo>();
             collection.Add(a);
             collection.Add(b);
@@ -51,14 +52,19 @@ namespace TodoApi.Controllers
         // todos/getmore
         [HttpPost]
         // [Route("GetMore")]
-        public ActionResult<IList<Todo>> PostTodo(Todo todo)
+        public ActionResult<IList<Todo>> PostTodo(IList<Todo> todos)
         {
             var currentTodos = new List<Todo>();
-            currentTodos.Add(todo);
-            var c = new Todo { Id = "84", Text = "More todos from the server 3", IsCompleted = false };
+            currentTodos.AddRange(todos);
+            var c = new Todo { Id = GenerateId(), Text = "More todos from the server 3", IsCompleted = false };
             currentTodos.Add(c);
 
             return CreatedAtAction(nameof(Get), currentTodos);
+        }
+
+        public string GenerateId()
+        {
+            return Guid.NewGuid().ToString("N");
         }
 
     }
@@ -71,5 +77,6 @@ namespace TodoApi.Controllers
         public bool IsCompleted { get; set; }
 
     };
+
 
 }

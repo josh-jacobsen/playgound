@@ -8,13 +8,32 @@ import TodoList from './TodoList'
 import TodoButton from './TodoButton'
 
 // Import interfaces
-import { TodoInterface } from './interfaces'
+import { TodoInterface } from './interfaces';
+import TodoPostButton from './TodoPostButton'
+import TodoItem from './TodoItem';
 
 export async function http(request: RequestInfo): Promise<any> {
   const response = await fetch(request);
   const body = await response.json();
   return body;
 }
+
+export async function httpPost(todos: TodoInterface[]): Promise<any> {
+  const dummyData: TodoInterface = { id: '1', isCompleted: false, text: 'dummy todo' }
+  const dataToSend = { todos }
+  const response = await fetch('https://localhost:5001/todos', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(todos)
+  });
+  const body = await response.json();
+  return body;
+}
+
+
 
 const TodoListApp = () => {
   const [todos, setTodos] = React.useState<TodoInterface[]>([])
@@ -41,6 +60,12 @@ const TodoListApp = () => {
     const newState = currentState.concat(newTodosToAdd)
     setTodos(newState)
 
+  }
+
+  const postTodos = async () => {
+    console.log('posting todos')
+    const existingTodos: TodoInterface[] = [...todos]
+    const responseFromServer = await httpPost(existingTodos);
   }
 
   function handleTodoCreate(todo: TodoInterface) {
@@ -111,7 +136,16 @@ const TodoListApp = () => {
         />
         <TodoButton
           endpoint='https://localhost:5001/todos/getmore'
+          text="Get more todos"
           getTodos={getTodos} />
+        <TodoPostButton
+          endpoint='https://localhost:5001/todos'
+          text="Post todos"
+          postTodos={postTodos} />
+        <button
+          onClick={() => postTodos()}>
+          This is the post button
+        </button>
       </div>
     </div>
   )

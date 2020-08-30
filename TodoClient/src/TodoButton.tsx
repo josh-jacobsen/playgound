@@ -6,7 +6,7 @@ const TodoButton = (props: TodoButtonInterface) => {
         <button
             className="todo-button"
             onClick={() => props.getTodos(props.endpoint)}
-        >Get more todos
+        >{props.text}
         </button>
     )
 }
@@ -14,6 +14,7 @@ const TodoButton = (props: TodoButtonInterface) => {
 export default TodoButton
 
 interface TodoButtonInterface {
+    text: String;
     endpoint: RequestInfo;
     getTodos: (endpoint: RequestInfo) => void;
 }
