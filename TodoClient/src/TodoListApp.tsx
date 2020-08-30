@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 // Import components
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
+import TodoButton from './TodoButton'
 
 // Import interfaces
 import { TodoInterface } from './interfaces'
@@ -27,8 +28,8 @@ const TodoListApp = () => {
     loadTodos()
   }, []);
 
-  const getTodos = async () => {
-    const newTodos: TodoInterface[] = await http('https://localhost:5001/todos/getmore')
+  const getTodos = async (endpoint: RequestInfo) => {
+    const newTodos: TodoInterface[] = await http(endpoint)
     const currentState: TodoInterface[] = [...todos]
     const existingIds: String[] = currentState.map(x => x.id);
     const newTodosToAdd: TodoInterface[] = [];
@@ -108,11 +109,9 @@ const TodoListApp = () => {
           handleTodoComplete={handleTodoComplete}
           handleTodoBlur={handleTodoBlur}
         />
-        <button
-          className="todo-button"
-          onClick={async () => getTodos()}
-        >Get more todos
-        </button>
+        <TodoButton
+          endpoint='https://localhost:5001/todos/getmore'
+          getTodos={getTodos} />
       </div>
     </div>
   )

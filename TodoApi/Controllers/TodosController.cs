@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -45,6 +46,19 @@ namespace TodoApi.Controllers
             collection.Add(c);
 
             return collection;
+        }
+
+        // todos/getmore
+        [HttpPost]
+        // [Route("GetMore")]
+        public ActionResult<IList<Todo>> PostTodo(Todo todo)
+        {
+            var currentTodos = new List<Todo>();
+            currentTodos.Add(todo);
+            var c = new Todo { Id = "84", Text = "More todos from the server 3", IsCompleted = false };
+            currentTodos.Add(c);
+
+            return CreatedAtAction(nameof(Get), currentTodos);
         }
 
     }
