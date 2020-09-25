@@ -63,9 +63,10 @@ const TodoListApp = () => {
   }
 
   const postTodos = async () => {
-    console.log('posting todos')
+    console.log('posting')
     const existingTodos: TodoInterface[] = [...todos]
-    const responseFromServer = await httpPost(existingTodos);
+    const responseFromServer: TodoInterface[] = await httpPost(existingTodos);
+    setTodos(responseFromServer)
   }
 
   function handleTodoCreate(todo: TodoInterface) {
